@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def libs = rootProject.ext.libraries
+def testLibs = rootProject.ext.testingLibraries
+def config = rootProject.ext.configuration
+
+
+android {
+    compileSdkVersion config.targetSdk
+    defaultConfig {
+        applicationId config.applicationId
+        minSdkVersion config.minSdk
+        targetSdkVersion config.targetSdk
+        versionCode config.versionCode
+        versionName config.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Android
+    implementation "com.android.support:appcompat-v7:${libs.appcompat}"
+    implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayoutVersion}"
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:${libs.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${libs.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${libs.daggerVersion}"
+    kapt "com.google.dagger:dagger-compiler:${libs.daggerCompilerVersion}"
+    kapt "com.google.dagger:dagger-android-processor:${libs.daggerVersion}"
+
+    // Test
+    testImplementation "junit:junit:${testLibs.junitVersion}"
+    androidTestImplementation "com.android.support.test:runner:${testLibs.androidJUnitRunnerVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${testLibs.espressoCoreVersion}"
+}
