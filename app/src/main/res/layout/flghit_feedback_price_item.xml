@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+
+    <android.support.constraint.Group android:id="@+id/feedBackPriceGroup"
+                                      android:layout_width="match_parent"
+                                      android:layout_height="100dp"
+                                      app:constraint_referenced_ids="airlineLogo"
+
+                                      android:background="@color/sectionBackground"/>
+
+    <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_divider"
+            app:layout_constraintEnd_toEndOf="@id/feedBackPriceGroup"
+            app:layout_constraintStart_toStartOf="@id/feedBackPriceGroup"
+            app:layout_constraintTop_toTopOf="@id/headerGroup"></View>
+
+    <ImageView
+            android:id="@+id/flightFeedbackIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:srcCompat="@mipmap/happy_face"
+            app:layout_constraintTop_toTopOf="@+id/view_divider"
+            app:layout_constraintLeft_toLeftOf="@id/feedBackPriceGroup"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"/>
+    <TextView
+            android:id="@+id/flightPoint"
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            tools:text="10.0"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintTop_toTopOf="@id/flightPrice"
+            android:layout_marginTop="4dp"
+            app:layout_constraintLeft_toLeftOf="@id/flightFeedbackIcon"
+            android:layout_marginStart="24dp"/>
+
+    <TextView
+            android:id="@+id/flightPrice"
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            tools:text="£35"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintTop_toTopOf="@id/view_divider"
+            app:layout_constraintRight_toRightOf="@id/view_divider"
+            android:gravity="end"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"/>
+    <TextView
+            android:id="@+id/flightProvider"
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            tools:text="via Wizzair.com"
+            android:textSize="16sp"
+            android:textColor="@color/gray_divider"
+            android:textStyle="bold|italic"
+            app:layout_constraintTop_toBottomOf="@id/flightPrice"
+            app:layout_constraintRight_toRightOf="@id/flightPrice"/>
+</android.support.constraint.ConstraintLayout>

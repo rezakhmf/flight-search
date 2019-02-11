@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@color/flightBackground">
+
+
+    <android.support.constraint.Group android:id="@+id/headerGroup"
+                                      android:layout_width="match_parent"
+                                      android:layout_height="56dp"
+                                      app:constraint_referenced_ids="pagingResult, sortFilter"
+                                      android:background="@color/sectionBackground"/>
+
+    <TextView
+            android:id="@+id/pagingResult"
+            android:layout_width="113dp"
+            android:layout_height="24dp"
+            tools:text="result"
+            android:textSize="16dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"/>
+
+    <Button android:id="@+id/sortFilter"
+            android:text="@string/sort_and_filter"
+            android:layout_width="101dp"
+            android:layout_height="24dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pagingResult"
+            android:background="@color/sectionBackground"
+            app:layout_constraintBaseline_toBaselineOf="@id/pagingResult"
+            android:layout_marginRight="8dp"/>
+
+
+    <android.support.constraint.Guideline
+            android:id="@+id/resultSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="56dp"/>
+
+    <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/flightPricesRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:background="@color/sectionBackground"
+            app:layout_constraintTop_toBottomOf="@id/resultSeparator"/>
+
+    <ImageView
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/not_available"
+            android:visibility="gone"
+            android:scaleType="center"
+            android:paddingBottom="160dp"
+            android:contentDescription="@string/empty"/>
+
+</android.support.constraint.ConstraintLayout>

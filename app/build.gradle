@@ -32,7 +32,9 @@ dependencies {
 
     // Android
     implementation "com.android.support:appcompat-v7:${libs.appcompat}"
+    implementation "com.android.support:support-v4:${libs.supportVersion}"
     implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayoutVersion}"
+    implementation "com.android.support:recyclerview-v7:${libs.recyclerview}"
 
     // Dagger 2
     implementation "com.google.dagger:dagger:${libs.daggerVersion}"
@@ -40,6 +42,16 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:${libs.daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${libs.daggerCompilerVersion}"
     kapt "com.google.dagger:dagger-android-processor:${libs.daggerVersion}"
+
+    // Rxjava 2
+    implementation "io.reactivex.rxjava2:rxjava:${libs.rxjavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${libs.rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxkotlin:${libs.rxKotlinVersion}"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${libs.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${libs.retrofit2converterGsonVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${libs.loggingInterceptorVersion}"
 
     // Test
     testImplementation "junit:junit:${testLibs.junitVersion}"
