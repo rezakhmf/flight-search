@@ -7,6 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class FlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
 
@@ -26,14 +27,20 @@ class FlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPre
             .doOnSubscribe{
                 if(isViewAttached()) {
                     flighPricesView?.loadingStarted()
+
                 }
-            }.subscribeBy( onNext = { flightPrices ->
-
-            },
-                onError = { error ->
-
+            }.subscribeBy(
+                onNext = { flightPrices ->
+                    print(flightPrices)
                 },
-                onComplete = {})
+                onError = { error ->
+                    onFlightPricestFetchError(error)
+                },
+                onComplete = {
+                    print("completed")
+                })
+
+        compositeDisposable.add(disposableFlightPrices)
     }
 
     override fun setView(flighPricesView: IFlightPricesView) {
@@ -48,6 +55,7 @@ class FlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPre
     private fun onFlightPricesResult(flightPrices: FlightPricesResults) {
         if(isViewAttached() && flightPrices != null) {
          // logic in kotlin way do async from cba
+            //flighPricesView?.showFlightPrices()
         }
     }
 

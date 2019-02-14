@@ -28,20 +28,25 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Android
     implementation "com.android.support:appcompat-v7:${libs.appcompat}"
     implementation "com.android.support:support-v4:${libs.supportVersion}"
+    implementation "com.android.support:design:${libs.supportVersion}"
     implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayoutVersion}"
     implementation "com.android.support:recyclerview-v7:${libs.recyclerview}"
 
     // Dagger 2
-    implementation "com.google.dagger:dagger:${libs.daggerVersion}"
-    implementation "com.google.dagger:dagger-android:${libs.daggerVersion}"
-    implementation "com.google.dagger:dagger-android-support:${libs.daggerVersion}"
-    kapt "com.google.dagger:dagger-compiler:${libs.daggerCompilerVersion}"
-    kapt "com.google.dagger:dagger-android-processor:${libs.daggerVersion}"
+    implementation 'com.google.dagger:dagger:2.21'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+    implementation 'com.google.dagger:dagger-android:2.16'
+    implementation 'com.google.dagger:dagger-android-support:2.21'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.21'
+    kapt "com.google.dagger:dagger-compiler:2.21"
+    kapt "com.google.dagger:dagger-android-processor:2.21"
 
     // Rxjava 2
     implementation "io.reactivex.rxjava2:rxjava:${libs.rxjavaVersion}"

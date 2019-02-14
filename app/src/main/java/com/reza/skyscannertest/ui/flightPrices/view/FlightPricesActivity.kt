@@ -12,12 +12,14 @@ import javax.inject.Inject
 
 class FlightPricesActivity : BaseActivity() {
 
+    @Inject
+    lateinit var flightPricesFragment: FlightPricesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.flight_price_list)
 
-        addFragment(FlightPricesFragment(), R.id.flightPricesContainer)
+        addFragment(flightPricesFragment, R.id.flightPricesContainer)
 
     }
 }

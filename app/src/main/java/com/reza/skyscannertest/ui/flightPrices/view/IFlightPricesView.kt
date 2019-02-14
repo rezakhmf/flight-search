@@ -5,7 +5,7 @@ import java.util.ArrayList
 
 interface IFlightPricesView {
 
-    fun showAccount(flightPrices: FlightPricesResults)
+    fun showFlightPrices(flightPrices: FlightPricesResults)
     fun loadingStarted()
     fun loadingFailed(errorMessage: String?)
 }

@@ -13,15 +13,6 @@ import retrofit2.Retrofit
 @Module
 internal class FlightPricesActivityModule {
 
-
-    private lateinit var flightPricesFragment: FlightPricesFragment
-
-    @Provides
-    @FragmentScope
-    fun provideFlightPricesFragment(): FlightPricesFragment {
-        return flightPricesFragment
-    }
-
     @Provides
     fun provideFlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
         return FlightPricesPresenter(flightPricesApi)
@@ -36,4 +27,5 @@ internal class FlightPricesActivityModule {
     fun provideFlightPricesRVAdapter() : FlightPricesRVAdapter {
         return FlightPricesRVAdapter()
     }
+
 }
