@@ -2,14 +2,16 @@ package com.reza.skyscannertest.ui.flightPrices.presenter
 
 import com.reza.skyscannertest.data.flightPrices.FlightPricesApi
 import com.reza.skyscannertest.data.flightPrices.remote.FlightPricesResults
+import com.reza.skyscannertest.data.flightPrices.remote.Query
 import com.reza.skyscannertest.ui.flightPrices.view.IFlightPricesView
+import com.reza.skyscannertest.ui.main.PRICING_URL
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
+class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
 
 
     private var flightPricesApi: FlightPricesApi = flightPricesApi
@@ -17,18 +19,21 @@ class FlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPre
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun displayFlightPrices() {
-        var disposableFlightPrices = flightPricesApi?.createSesion("Economy", "UK",
+
+
+        var disposableFlightPrices = flightPricesApi?.createSession(PRICING_URL, "Economy", "UK",
             "GBP", "en-GB",
             "iata", "EDI",
-            "LHR", "2019-02-11",
-            "2019-02-12", 1, 0, 0)
+            "LHR", "2019-02-18",
+            "2019-02-19", 1, 0, 0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe{
-                if(isViewAttached()) {
+              //  if(isViewAttached()) {
                     flighPricesView?.loadingStarted()
 
-                }
+               // }
+
             }.subscribeBy(
                 onNext = { flightPrices ->
                     print(flightPrices)

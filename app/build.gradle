@@ -26,6 +26,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -35,6 +36,7 @@ dependencies {
     // Android
     implementation "com.android.support:appcompat-v7:${libs.appcompat}"
     implementation "com.android.support:support-v4:${libs.supportVersion}"
+    implementation "com.android.support:support-annotations:${libs.supportVersion}"
     implementation "com.android.support:design:${libs.supportVersion}"
     implementation "com.android.support.constraint:constraint-layout:${libs.constraintLayoutVersion}"
     implementation "com.android.support:recyclerview-v7:${libs.recyclerview}"
@@ -55,6 +57,7 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${libs.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${libs.retrofitVersion}"
     implementation "com.squareup.retrofit2:converter-gson:${libs.retrofit2converterGsonVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${libs.loggingInterceptorVersion}"
 

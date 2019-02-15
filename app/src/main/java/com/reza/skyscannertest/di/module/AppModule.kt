@@ -6,14 +6,14 @@ import com.reza.skyscannertest.BaseApp
 import com.reza.skyscannertest.di.scope.PreApplication
 import dagger.Module
 import dagger.Provides
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-@Module
+@Module(includes = arrayOf(AndroidSupportInjectionModule::class, ActivityBuilder::class))
 class AppModule {
 
     @Provides
     @Singleton
-    @PreApplication
     fun provideContext(app: BaseApp): Context {
         return app.applicationContext
     }

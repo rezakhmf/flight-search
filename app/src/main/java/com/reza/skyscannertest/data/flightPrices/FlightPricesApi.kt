@@ -1,27 +1,29 @@
 package com.reza.skyscannertest.data.flightPrices
 
+import com.google.gson.JsonObject
 import com.reza.skyscannertest.data.flightPrices.remote.FlightPricesResults
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.Response
+import retrofit2.http.*
 
 interface FlightPricesApi {
 
+    @FormUrlEncoded
     @POST
-    fun createSesion(@Query("cabinclass") cabinClass: String,
-                     @Query("country") country: String,
-                     @Query("currency") currency: String,
-                     @Query("locale") locale: String,
-                     @Query("locationSchema") locationSchema: String,
-                     @Query("originplace") originplace: String,
-                     @Query("destinationplace") destinationplace: String,
-                     @Query("outbounddate") outbounddate: String,
-                     @Query("inbounddate") inbounddate: String,
-                     @Query("adults") adults: Int,
-                     @Query("children") children: Int,
-                     @Query("infants") infants: Int) : Observable<String>
+    fun createSession(@Url url: String, @Field("cabinclass") cabinClass: String,
+                      @Field("country") country: String,
+                      @Field("currency") currency: String,
+                      @Field("locale") locale: String,
+                      @Field("locationSchema") locationSchema: String,
+                      @Field("originplace") originplace: String,
+                      @Field("destinationplace") destinationplace: String,
+                      @Field("outbounddate") outbounddate: String,
+                      @Field("inbounddate") inbounddate: String,
+                      @Field("adults") adults: Int,
+                      @Field("children") children: Int,
+                      @Field("infants") infants: Int
+                     ) : Observable<Response<JsonObject>>
     @GET
     fun getFlightPrices(@Url url: String) : Observable<FlightPricesResults>
 }
+

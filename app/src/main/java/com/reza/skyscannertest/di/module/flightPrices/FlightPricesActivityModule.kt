@@ -5,27 +5,24 @@ import com.reza.skyscannertest.di.scope.FragmentScope
 import com.reza.skyscannertest.ui.flightPrices.FlightPricesRVAdapter
 import com.reza.skyscannertest.ui.flightPrices.presenter.FlightPricesPresenter
 import com.reza.skyscannertest.ui.flightPrices.presenter.IFlightPricesPresenter
+import com.reza.skyscannertest.ui.flightPrices.view.FlightPricesActivity
 import com.reza.skyscannertest.ui.flightPrices.view.FlightPricesFragment
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import retrofit2.Retrofit
+import dagger.Binds
+
+
 
 @Module
-internal class FlightPricesActivityModule {
+class FlightPricesActivityModule {
+
+
 
     @Provides
-    fun provideFlightPricesPresenter(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
-        return FlightPricesPresenter(flightPricesApi)
-    }
-
-    @Provides
-    fun provideFlightPricesApi(retrofit: Retrofit) : FlightPricesApi {
-        return retrofit.create(FlightPricesApi::class.java)
-    }
-
-    @Provides
-    fun provideFlightPricesRVAdapter() : FlightPricesRVAdapter {
-        return FlightPricesRVAdapter()
+    fun bindFlightPricesActivity(flightPricesActivity: FlightPricesActivity): FlightPricesActivity {
+        return FlightPricesActivity()
     }
 
 }

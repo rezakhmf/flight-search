@@ -15,10 +15,8 @@ import kotlin.reflect.KClass
 @Singleton
 @Component(
     modules = [
-        AndroidSupportInjectionModule::class,
         AppModule::class,
-        NetworkModule::class,
-        ActivityBuilder::class]
+        NetworkModule::class]
 )
 interface AppComponent: AndroidInjector<BaseApp> {
 
