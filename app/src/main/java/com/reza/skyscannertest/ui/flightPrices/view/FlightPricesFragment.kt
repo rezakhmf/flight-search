@@ -30,7 +30,7 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
         super.onViewCreated(view, savedInstanceState)
         showProgress()
         initializeView()
-        flightPricesPresenter.displayFlightPrices()
+        flightPricesPresenter.createFlightPricesSession()
 
         //loadReposList()
     }
@@ -47,7 +47,7 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
         flightPricesRV.visible()
        // showProgress()
         // should get price list from here from peresenter need to fix all injection
-        //flightPricesPresenter.displayFlightPrices()
+        //flightPricesPresenter.createFlightPricesSession()
     }
 
 
