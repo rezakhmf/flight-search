@@ -10,6 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.custom.async
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import javax.inject.Inject
 
 class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi) : IFlightPricesPresenter {
@@ -32,10 +35,10 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                //  if(isViewAttached()) {
-                flighPricesView?.loadingStarted()
+                  if(isViewAttached()) {
+                     flighPricesView?.loadingStarted()
 
-                // }
+                 }
 
             }.subscribeBy(
                 onNext = { flightPricesSessionResponse ->
@@ -66,9 +69,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
                     val flightsInfo: MutableList<FlightInfo> = arrayListOf()
 
-                    // flighPricesView?.showFlightPrices(flightPrices)
-
-                    var legs = Observable.fromArray(flightPrices.Itineraries)
+                    var segments = Observable.fromArray(flightPrices.Itineraries)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .flatMapIterable { itineraries -> itineraries }
@@ -112,7 +113,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
 
 
-                    Observable.fromArray(flightsInfo)
+                    val departure = Observable.fromArray(flightsInfo)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .flatMapIterable { flightsInfo -> flightsInfo }
@@ -146,7 +147,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                             })
 
 
-                    Observable.fromArray(flightsInfo)
+                    val carrier = Observable.fromArray(flightsInfo)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .flatMapIterable { flightsInfo -> flightsInfo }
@@ -181,7 +182,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
 
 
-                    Observable.fromArray(flightsInfo)
+                    val destination = Observable.fromArray(flightsInfo)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .flatMapIterable { flightsInfo -> flightsInfo }
@@ -205,73 +206,23 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                         }.subscribeBy(
                             onNext = { flightPricesSessionResponse ->
 
-
                             },
                             onError = { error ->
                                 onFlightPricestFetchError(error)
                             },
                             onComplete = {
                                 print(flightsInfo)
+
+
+                                doAsync {
+                                    uiThread {
+                                        flighPricesView?.showFlightPrices(flightsInfo)
+                                    }
+                                }
                             })
 
+                    compositeDisposable.addAll(segments, destination, carrier, departure)
 
-
-
-
-
-                    // segment
-//                    var segment = legs.flatMap { leg ->  Observable.fromArray(flightPrices.Segments)
-//                            .flatMapIterable { it -> it }
-//                            .filter { segment ->
-//                                leg.SegmentIds?.get(0) == segment.Id}
-//
-//                        }
-
-                    // originStation
-//                        segment.flatMap { place ->  Observable.fromArray(flightPrices.Places)
-//                            .flatMapIterable { it -> it }
-//                            .filter { originStation ->
-//                                place.OriginStation == originStation.Id }
-//                            .map { originStation ->
-//                                flightInfo?.departurePlace = originStation.Name
-//                                return@map originStation
-//                            }
-//                        }
-
-
-//                        // segment
-//                        .flatMap { leg ->  Observable.fromArray(flightPrices.Segments)
-//                            .flatMapIterable { it -> it }
-//                            .filter { segment -> leg.SegmentIds?.get(0) == segment.Id}
-//
-//                        }
-//                        // places
-//                        .flatMap { _segment ->  Observable.fromArray(flightPrices.Places)
-//                            .flatMapIterable { it -> it }
-//                            .filter { originStation ->  _segment.OriginStation == originStation.Id }
-//                            .map { originStation ->
-//                                flightInfo?.departurePlace = originStation.Name
-//                                return@map originStation
-//                            }
-//                            // places
-//                        }.flatMap { place ->  Observable.fromArray(flightPrices.Places)
-//                            .flatMapIterable { it -> it }
-//                            .filter { originStation ->  place.Id == originStation.Id }
-//                            .map { destinationStation ->
-//                                flightInfo?.arrivalPlace = destinationStation.Name
-//                                return@map destinationStation
-//                            }
-//                        }
-//                        // carrier
-//                        .flatMap { _place ->  Observable.fromArray(flightPrices.Carriers)
-//                            .flatMapIterable { it -> it }
-//                            .filter { carrier -> segment.Carrier == carrier.Id }
-//                            .map { carrier ->
-//                                flightInfo?.carrier = carrier.Name
-//                                flightInfo?.let { flightsInfo.add(it) }
-//                                return@map carrier
-//                            }
-//                        }
 
 
                 },
@@ -281,7 +232,6 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                 onComplete = {
                     print("completed")
                 })
-
     }
 
     override fun setView(flighPricesView: IFlightPricesView) {
@@ -295,8 +245,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
     private fun onFlightPricesResult(flightPrices: FlightPricesResults) {
         if (isViewAttached() && flightPrices != null) {
-            // logic in kotlin way do async from cba
-            //flighPricesView?.showFlightPrices()
+ 
         }
     }
 

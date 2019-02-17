@@ -32,6 +32,8 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kotlin
+    implementation  "org.jetbrains.anko:anko-common:0.10.8"
 
     // Android
     implementation "com.android.support:appcompat-v7:${libs.appcompat}"

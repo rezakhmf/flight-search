@@ -56,10 +56,9 @@
             android:id="@+id/emptyView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/not_available"
-            android:visibility="gone"
+            android:src="@mipmap/airplane_motion"
+            android:visibility="visible"
             android:scaleType="center"
-            android:paddingBottom="160dp"
             android:contentDescription="@string/empty"/>
 
 </android.support.constraint.ConstraintLayout>
