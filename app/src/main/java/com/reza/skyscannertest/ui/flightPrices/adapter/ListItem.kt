@@ -7,7 +7,7 @@ abstract class ListItem {
     companion object {
 
         val TYPE_FLIGHT_INFO = 0
-        val TYPE_SUMMARY = 1
+        val TYPE_FEEDBACK = 1
     }
 
 }

@@ -7,66 +7,103 @@ import android.view.View
 import android.view.ViewGroup
 import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
+import kotlinx.android.synthetic.main.flghit_feedback_price_item.view.*
 import kotlinx.android.synthetic.main.flight_price_item.view.*
 import java.util.*
 import javax.inject.Inject
 
-class FlightPricesRVAdapter@Inject constructor(): RecyclerView.Adapter<FlightPricesRVAdapter.FlightViewHolder>() {
+class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var context: Context? = null
     private var flightPrices = Collections.emptyList<FlightInfo>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         context = parent?.context
         val layoutInflater = LayoutInflater.from(context)
 
-        return FlightViewHolder(
-            layoutInflater.inflate(
-                R.layout.flight_price_item,
-                parent,
-                false
-            )
-        )
+        when (viewType) {
+            ListItem.TYPE_FLIGHT_INFO -> {
+                val itemView = layoutInflater.inflate(R.layout.flight_price_item, parent, false)
+                return FlightPriceItemViewHolder(itemView)
+            }
+
+            ListItem.TYPE_FEEDBACK -> {
+                val itemView = layoutInflater.inflate(R.layout.flghit_feedback_price_item, parent, false)
+                return FlightFeedbackViewHolder(itemView)
+            }
+
+            else -> throw IllegalStateException("unsupported view type")
+        }
     }
+
 
     override fun getItemCount(): Int {
-        return  flightPrices.size
+        return flightPrices.size
     }
 
-    override fun onBindViewHolder(holder: FlightViewHolder, postion: Int) {
+    override fun getItemViewType(position: Int): Int {
+        if(position == 0  || position % 3 != 0) {
+            return ListItem.TYPE_FLIGHT_INFO
+        } else {
+            return ListItem.TYPE_FEEDBACK
+        }
+    }
 
-        val flightInfo = flightPrices.get(postion)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        val flightInfo = flightPrices.get(position)
+        val viewType = getItemViewType(position)
+
+        when (viewType) {
+            ListItem.TYPE_FLIGHT_INFO -> {
 
         holder.itemView.flightTime.text = flightInfo.departureTime + flightInfo.departureTime
         holder.itemView.flightInOutBound.text = flightInfo.departurePlace  + "-" + flightInfo.arrivalPlace
         holder.itemView.flightStops.text = flightInfo.directionality
         holder.itemView.flightDuration.text = "need to be fixed"
+            }
+            ListItem.TYPE_FEEDBACK -> {
+                // TODO(replace with calculated)
+                holder.itemView.flightPoint.text = "10"
+                holder.itemView.flightProvider.text = flightInfo.carrier
+                holder.itemView.flightPrice.text = "35"
+            }
 
-        // TODO(replace with calculated)
-        holder.itemView.flightPoint.text = "10"
-        holder.itemView.flightProvider.text = flightInfo.carrier
-        holder.itemView.flightPrice.text = "35"
 
 
+        }
     }
 
 
-    fun reloadFlightPrices(flightPrices: MutableList<FlightInfo>){
+        fun reloadFlightPrices(flightPrices: MutableList<FlightInfo>) {
 
-        this.flightPrices = flightPrices
+            this.flightPrices = flightPrices
+        }
+
+
+        class FlightPriceItemViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val flighTime = itemView.flightTime
+            val flightInOutBound = itemView.flightInOutBound
+            val flightStops = itemView.flightStops
+            val flightDuration = itemView.flightDuration
+        }
+
+        class FlightFeedbackViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val flightPoint = itemView.flightPoint
+            val flightProvider = itemView.flightProvider
+            val flightPrice = itemView.flightPrice
+        }
+
+
+//    class FlightViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//        val flighTime = view.flightTime
+//        val flightInOutBound = view.flightInOutBound
+//        val flightStops = view.flightStops
+//        val flightDuration = view.flightDuration
+//
+//        val flightPoint = view.flightPoint
+//        val flightProvider = view.flightProvider
+//        val flightPrice = view.flightPrice
+//    }
     }
-
-
-
-
-    class FlightViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val flighTime = view.flightTime
-        val flightInOutBound = view.flightInOutBound
-        val flightStops = view.flightStops
-        val flightDuration = view.flightDuration
-
-        val flightPoint = view.flightPoint
-        val flightProvider = view.flightProvider
-        val flightPrice = view.flightPrice
-    }
-}
