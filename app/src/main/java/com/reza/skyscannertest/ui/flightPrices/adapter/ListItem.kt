@@ -1,4 +1,4 @@
-package com.reza.skyscannertest.ui.flightPrices
+package com.reza.skyscannertest.ui.flightPrices.adapter
 
 abstract class ListItem {
 

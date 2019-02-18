@@ -1,4 +1,4 @@
-package com.reza.skyscannertest.di.module
+package com.reza.skyscannertest.di.builder.flightPrices
 
 import dagger.Module
 import com.reza.skyscannertest.ui.flightPrices.view.FlightPricesActivity

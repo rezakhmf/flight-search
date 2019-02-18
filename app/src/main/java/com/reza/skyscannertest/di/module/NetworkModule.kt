@@ -1,13 +1,12 @@
 package com.reza.skyscannertest.di.module
 
 import android.content.Context
-import com.reza.skyscannertest.data.flightPrices.FlightPricesApi
+import com.reza.skyscannertest.data.flightPrices.api.FlightPricesApi
 import com.reza.skyscannertest.ui.main.BASE_URL
 import com.reza.skyscannertest.ui.main.TIMEOUT_IN_MS
 import com.reza.skyscannertest.utils.ApiInterceptor
 import dagger.Module
 import dagger.Provides
-import dagger.Reusable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient

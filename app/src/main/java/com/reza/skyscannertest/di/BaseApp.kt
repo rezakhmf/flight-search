@@ -1,4 +1,4 @@
-package com.reza.skyscannertest
+package com.reza.skyscannertest.di
 
 import com.reza.skyscannertest.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector

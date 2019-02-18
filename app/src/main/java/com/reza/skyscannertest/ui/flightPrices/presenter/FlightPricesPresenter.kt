@@ -1,6 +1,6 @@
 package com.reza.skyscannertest.ui.flightPrices.presenter
 
-import com.reza.skyscannertest.data.flightPrices.FlightPricesApi
+import com.reza.skyscannertest.data.flightPrices.api.FlightPricesApi
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
 import com.reza.skyscannertest.data.flightPrices.remote.FlightPricesResults
 import com.reza.skyscannertest.ui.flightPrices.view.IFlightPricesView
@@ -10,7 +10,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import javax.inject.Inject
@@ -245,7 +244,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
     private fun onFlightPricesResult(flightPrices: FlightPricesResults) {
         if (isViewAttached() && flightPrices != null) {
- 
+
         }
     }
 

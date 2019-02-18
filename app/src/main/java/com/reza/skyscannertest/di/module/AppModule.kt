@@ -1,9 +1,8 @@
 package com.reza.skyscannertest.di.module
 
-import android.app.Application
 import android.content.Context
-import com.reza.skyscannertest.BaseApp
-import com.reza.skyscannertest.di.scope.PreApplication
+import com.reza.skyscannertest.di.BaseApp
+import com.reza.skyscannertest.di.builder.flightPrices.ActivityBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule

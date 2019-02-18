@@ -1,4 +1,4 @@
-package com.reza.skyscannertest.data.flightPrices
+package com.reza.skyscannertest.data.flightPrices.api
 
 import com.google.gson.JsonObject
 import com.reza.skyscannertest.data.flightPrices.remote.FlightPricesResults

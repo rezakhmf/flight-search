@@ -5,9 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
-import com.reza.skyscannertest.data.flightPrices.remote.FlightPricesResults
 import com.reza.skyscannertest.ui.base.BaseFragment
-import com.reza.skyscannertest.ui.flightPrices.FlightPricesRVAdapter
+import com.reza.skyscannertest.ui.flightPrices.adapter.FlightPricesRVAdapter
 import com.reza.skyscannertest.ui.flightPrices.presenter.FlightPricesPresenter
 import com.reza.skyscannertest.utils.extensions.invisible
 import com.reza.skyscannertest.utils.extensions.visible
