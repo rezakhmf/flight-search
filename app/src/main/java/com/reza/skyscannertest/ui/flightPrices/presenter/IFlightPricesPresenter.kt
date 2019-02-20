@@ -6,7 +6,7 @@ interface IFlightPricesPresenter {
     fun createFlightPricesSession()
     fun getFlightPricesSession(url: String)
 
-    fun setView(flighPricesView: IFlightPricesView)
+    fun setView(flightPricesView: IFlightPricesView)
 
     fun destroy()
 }

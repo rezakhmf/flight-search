@@ -44,9 +44,10 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0 || position % 3 != 0) {
+        if ((position+1) % 3 != 0) {
             return ListItem.TYPE_FLIGHT_INFO
-        } else if (position != 0 || position % 3 == 0) {
+        }
+        if ((position+1) % 3 == 0) {
             return ListItem.TYPE_FEEDBACK
         }
         return ListItem.TYPE_FEEDBACK
@@ -68,22 +69,20 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
                 // TODO(replace with calculated)
                 holder.itemView.flightPoint.text = "10"
                 holder.itemView.flightProvider.text = flightInfo.carrier
-                holder.itemView.flightPrice.text = "35"
+                holder.itemView.flightPrice.text = "£35"
             }
         }
     }
 
 
     fun reloadFlightPrices(flightPrices: MutableList<FlightInfo>) {
-
+        this.flightPrices.clear()
         this.flightPrices = flightPrices
     }
 
 
     class FlightPriceItemViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-
-        val flighTime = itemView.flightTime
+        val flightTime = itemView.flightTime
         val flightInOutBound = itemView.flightInOutBound
         val flightStops = itemView.flightStops
         val flightDuration = itemView.flightDuration

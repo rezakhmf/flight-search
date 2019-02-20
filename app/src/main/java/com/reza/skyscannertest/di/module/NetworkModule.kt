@@ -22,7 +22,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
-    fun provideFlighPricesApi(retrofit: Retrofit): FlightPricesApi {
+    fun provideFlightPricesApi(retrofit: Retrofit): FlightPricesApi {
         return retrofit.create(FlightPricesApi::class.java)
     }
 

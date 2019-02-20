@@ -13,20 +13,23 @@ class FlightInfoBiz @Inject constructor() {
 
 
         val flightsInfo: MutableList<FlightInfo> = arrayListOf()
+        var flightPairFlag: Boolean = false
 
         flightPricesResults.itineraries?.forEachIndexed { index, itinerary ->
 
 
             flightPricesResults.legs?.forEachIndexed { legIndex, leg ->
                 //inbound
-                if (itinerary.inboundLegId == leg.id) {
+                if ( !flightPairFlag && itinerary.inboundLegId == leg.id) {
                     val flightInfo = this.populateFlight(leg,flightPricesResults.carriers, flightPricesResults.places)
                     flightsInfo.add(flightInfo)
+                    flightPairFlag = true
                 }
                 //outbound
-                if (itinerary.outboundLegId == leg.id) {
+                if (flightPairFlag && itinerary.outboundLegId == leg.id) {
                     val flightInfo = this.populateFlight(leg,flightPricesResults.carriers, flightPricesResults.places)
                     flightsInfo.add(flightInfo)
+                    flightPairFlag = false
                 }
             }
         }
@@ -41,7 +44,7 @@ class FlightInfoBiz @Inject constructor() {
 
         carriers?.forEachIndexed { carrierIndex, carrier ->
             if (leg.carriers?.first() == carrier.id) {
-                flightInfo?.carrier = carrier.name
+                flightInfo?.carrier = "via " + carrier.name
                 flightInfo?.directionality = leg.directionality
                 flightInfo?.arrivalTime = leg.arrival?.UTCTime()
                 flightInfo?.departureTime = leg.departure?.UTCTime()

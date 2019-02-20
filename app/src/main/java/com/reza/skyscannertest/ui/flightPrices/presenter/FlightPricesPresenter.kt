@@ -21,13 +21,13 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
     @Inject
     lateinit var flightPricesInOutBound: FlightInfoBiz
     private var flightPricesApi: FlightPricesApi = flightPricesApi
-    private var flighPricesView: IFlightPricesView? = null
+    private var flightPricesView: IFlightPricesView? = null
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun createFlightPricesSession() {
 
 
-        var flightPricesSessionn = flightPricesApi?.createSession(
+        var flightPricesSession = flightPricesApi?.createSession(
             PRICING_URL, "Economy", "UK",
             "GBP", "en-GB",
             "iata", "EDI",
@@ -38,7 +38,7 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 if (isViewAttached()) {
-                    flighPricesView?.loadingStarted()
+                    flightPricesView?.loadingStarted()
 
                 }
 
@@ -49,13 +49,13 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                     }
                 },
                 onError = { error ->
-                    onFlightPricestFetchError(error)
+                    onFlightPricesFetchError(error)
                 },
                 onComplete = {
                     print("completed")
                 })
 
-        compositeDisposable.add(flightPricesSessionn)
+        compositeDisposable.add(flightPricesSession)
     }
 
     override fun getFlightPricesSession(url: String) {
@@ -70,12 +70,12 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                     doAsync {
                         val flightsInfo = flightPricesInOutBound.getFlightPrices(flightPrices)
                         uiThread {
-                            flighPricesView?.showFlightPrices(flightsInfo)
+                            flightPricesView?.showFlightPrices(flightsInfo)
                         }
                     }
                 },
                 onError = { error ->
-                    onFlightPricestFetchError(error)
+                    onFlightPricesFetchError(error)
                 },
                 onComplete = {
                     print("completed")
@@ -83,12 +83,12 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
 
     }
 
-    override fun setView(flighPricesView: IFlightPricesView) {
-        this.flighPricesView = flighPricesView
+    override fun setView(flightPricesView: IFlightPricesView) {
+        this.flightPricesView = flightPricesView
     }
 
     override fun destroy() {
-        flighPricesView = null
+        flightPricesView = null
         compositeDisposable?.clear()
     }
 
@@ -98,16 +98,16 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
         }
     }
 
-    private fun onFlightPricestFetchError(throwable: Throwable) {
+    private fun onFlightPricesFetchError(throwable: Throwable) {
         if (isViewAttached()) {
-            flighPricesView?.loadingFailed(throwable.message)
+            flightPricesView?.loadingFailed(throwable.message)
         } else {
             // do nothing
         }
     }
 
     private fun isViewAttached(): Boolean {
-        return flighPricesView != null
+        return flightPricesView != null
     }
 
 }

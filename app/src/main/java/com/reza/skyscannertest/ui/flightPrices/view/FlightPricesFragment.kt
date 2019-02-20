@@ -1,10 +1,7 @@
 package com.reza.skyscannertest.ui.flightPrices.view
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView.HORIZONTAL
-import android.support.v7.widget.RecyclerView.VERTICAL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +9,6 @@ import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
 import com.reza.skyscannertest.ui.base.BaseFragment
 import com.reza.skyscannertest.ui.flightPrices.adapter.FlightPricesRVAdapter
-import com.reza.skyscannertest.ui.flightPrices.presenter.DividerItemDecoration
 import com.reza.skyscannertest.ui.flightPrices.presenter.FlightPricesPresenter
 import com.reza.skyscannertest.utils.extensions.invisible
 import com.reza.skyscannertest.utils.extensions.visible
@@ -42,10 +38,6 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
             setHasFixedSize(true)
             val manager = LinearLayoutManager(context)
             layoutManager = manager
-//            val dividerItemDecoration = DividerItemDecoration(context, VERTICAL, true)
-//            dividerItemDecoration.setDrawable(context.getDrawable(R.drawable.border))
-//            dividerItemDecoration.setOrientation(VERTICAL)
-//            addItemDecoration(dividerItemDecoration)
         }
 
         return view
@@ -69,7 +61,7 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
         flightPricesRVAdapter?.reloadFlightPrices(flightPrices)
 
         sortFilter.text = "Sort & Filter"
-        pagingResult.text = flightPrices.size.toString()
+        pagingResult.text = flightPrices.size.toString() + " resutls"
         flightPricesRV.recycledViewPool.setMaxRecycledViews(0,20)
         flightPricesRV.adapter = flightPricesRVAdapter
         flightPricesRVAdapter?.notifyDataSetChanged()
