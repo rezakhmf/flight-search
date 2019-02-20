@@ -3,12 +3,10 @@ package com.reza.skyscannertest.ui.base
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -19,10 +17,6 @@ abstract class BaseFragment: DaggerFragment() {
 
     abstract fun layoutId(): Int
 
-//    override fun onAttach(context: Context?) {
-//        AndroidSupportInjection.inject(this)
-//        super.onAttach(context)
-//    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -41,10 +35,6 @@ abstract class BaseFragment: DaggerFragment() {
     override fun onDetach() {
         mActivity = null
         super.onDetach()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     fun getBaseActivity(): BaseActivity? {
@@ -67,9 +57,7 @@ abstract class BaseFragment: DaggerFragment() {
 
     internal fun notify(@StringRes message: String) =
         Toast.makeText(activity,message, Toast.LENGTH_SHORT).show()
-
-
-
+    
     public interface Callback {
 
         fun onFragmentAttached()

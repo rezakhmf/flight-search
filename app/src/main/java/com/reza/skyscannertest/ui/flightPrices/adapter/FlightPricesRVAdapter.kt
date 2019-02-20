@@ -9,6 +9,7 @@ import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
 import kotlinx.android.synthetic.main.flghit_feedback_price_item.view.*
 import kotlinx.android.synthetic.main.flight_price_item.view.*
+import kotlinx.android.synthetic.main.flight_prices_fragment.view.*
 import java.util.*
 import javax.inject.Inject
 
@@ -43,11 +44,12 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == 0  || position % 3 != 0) {
+        if (position == 0 || position % 3 != 0) {
             return ListItem.TYPE_FLIGHT_INFO
-        } else {
+        } else if (position != 0 || position % 3 == 0) {
             return ListItem.TYPE_FEEDBACK
         }
+        return ListItem.TYPE_FEEDBACK
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -57,11 +59,10 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
 
         when (viewType) {
             ListItem.TYPE_FLIGHT_INFO -> {
-
-        holder.itemView.flightTime.text = flightInfo.departureTime + flightInfo.departureTime
-        holder.itemView.flightInOutBound.text = flightInfo.departurePlace  + "-" + flightInfo.arrivalPlace
-        holder.itemView.flightStops.text = flightInfo.directionality
-        holder.itemView.flightDuration.text = "need to be fixed"
+                holder.itemView.flightTime.text = flightInfo.departureTime + "-" + flightInfo.arrivalTime
+                holder.itemView.flightInOutBound.text = flightInfo.departurePlace + "-" + flightInfo.arrivalPlace
+                holder.itemView.flightStops.text = flightInfo.stops
+                holder.itemView.flightDuration.text = flightInfo.duration
             }
             ListItem.TYPE_FEEDBACK -> {
                 // TODO(replace with calculated)
@@ -69,41 +70,29 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
                 holder.itemView.flightProvider.text = flightInfo.carrier
                 holder.itemView.flightPrice.text = "35"
             }
-
-
-
         }
     }
 
 
-        fun reloadFlightPrices(flightPrices: MutableList<FlightInfo>) {
+    fun reloadFlightPrices(flightPrices: MutableList<FlightInfo>) {
 
-            this.flightPrices = flightPrices
-        }
-
-
-        class FlightPriceItemViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val flighTime = itemView.flightTime
-            val flightInOutBound = itemView.flightInOutBound
-            val flightStops = itemView.flightStops
-            val flightDuration = itemView.flightDuration
-        }
-
-        class FlightFeedbackViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val flightPoint = itemView.flightPoint
-            val flightProvider = itemView.flightProvider
-            val flightPrice = itemView.flightPrice
-        }
-
-
-//    class FlightViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        val flighTime = view.flightTime
-//        val flightInOutBound = view.flightInOutBound
-//        val flightStops = view.flightStops
-//        val flightDuration = view.flightDuration
-//
-//        val flightPoint = view.flightPoint
-//        val flightProvider = view.flightProvider
-//        val flightPrice = view.flightPrice
-//    }
+        this.flightPrices = flightPrices
     }
+
+
+    class FlightPriceItemViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+        val flighTime = itemView.flightTime
+        val flightInOutBound = itemView.flightInOutBound
+        val flightStops = itemView.flightStops
+        val flightDuration = itemView.flightDuration
+    }
+
+    class FlightFeedbackViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val flightPoint = itemView.flightPoint
+        val flightProvider = itemView.flightProvider
+        val flightPrice = itemView.flightPrice
+    }
+
+}

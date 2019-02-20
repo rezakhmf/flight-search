@@ -7,4 +7,5 @@ data class FlightInfo(
     var arrivalTime: String? = "",
     var departurePlace: String? = "",
     var arrivalPlace: String? = "",
-    var stops: Int? = 0)
+    var stops: String? = "",
+    var duration: String? = "")

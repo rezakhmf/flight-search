@@ -1,15 +1,28 @@
 package com.reza.skyscannertest.data.flightPrices.remote
 
+import com.google.gson.annotations.SerializedName
+
 data class Segment(
-    val ArrivalDateTime: String?,
-    val Carrier: Int?,
-    val DepartureDateTime: String?,
-    val DestinationStation: Int?,
-    val Directionality: String?,
-    val Duration: Int?,
-    val FlightNumber: String?,
-    val Id: Int?,
-    val JourneyMode: String?,
-    val OperatingCarrier: Int?,
-    val OriginStation: Int?
+    @SerializedName("ArrivalDateTime")
+    val arrivalDateTime: String?,
+    @SerializedName("Carrier")
+    val carrier: Int?,
+    @SerializedName("DepartureDateTime")
+    val departureDateTime: String?,
+    @SerializedName("DestinationStation")
+    val destinationStation: Int?,
+    @SerializedName("Directionality")
+    val directionality: String?,
+    @SerializedName("Duration")
+    val duration: Int?,
+    @SerializedName("FlightNumber")
+    val flightNumber: String?,
+    @SerializedName("Id")
+    val id: Int?,
+    @SerializedName("JourneyMode")
+    val journeyMode: String?,
+    @SerializedName("OperatingCarrier")
+    val operatingCarrier: Int?,
+    @SerializedName("OriginStation")
+    val originStation: Int?
 )

@@ -1,5 +1,8 @@
 package com.reza.skyscannertest.data.flightPrices.remote
 
+import com.google.gson.annotations.SerializedName
+
 data class ServiceQuery(
-    val DateTime: String?
+    @SerializedName("DateTime")
+    val dateTime: String?
 )

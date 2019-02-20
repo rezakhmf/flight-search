@@ -1,20 +1,34 @@
 package com.reza.skyscannertest.data.flightPrices.remote
 
+import com.google.gson.annotations.SerializedName
 import retrofit2.http.Query
 
 data class Query(
 
-    val CabinClass: String?,
-    val Country: String?,
-    val Currency: String?,
-    val Locale: String?,
-    val LocationSchema: String?,
-    val OriginPlace: String?,
-    val DestinationPlace: String?,
-    val OutboundDate: String?,
-    val InboundDate: String?,
-    val Adults: Int?,
-    val Children: Int?,
-    val Infants: Int?,
-    val GroupPricing: Boolean?
+    @SerializedName("CabinClass")
+    val cabinClass: String?,
+    @SerializedName("Country")
+    val country: String?,
+    @SerializedName("Currency")
+    val currency: String?,
+    @SerializedName("Locale")
+    val locale: String?,
+    @SerializedName("LocationSchema")
+    val locationSchema: String?,
+    @SerializedName("OriginPlace")
+    val originPlace: String?,
+    @SerializedName("DestinationPlace")
+    val destinationPlace: String?,
+    @SerializedName("OutboundDate")
+    val outboundDate: String?,
+    @SerializedName("InboundDate")
+    val inboundDate: String?,
+    @SerializedName("Adults")
+    val adults: Int?,
+    @SerializedName("Children")
+    val children: Int?,
+    @SerializedName("Infants")
+    val infants: Int?,
+    @SerializedName("GroupPricing")
+    val groupPricing: Boolean?
 )

@@ -1,15 +1,28 @@
 package com.reza.skyscannertest.data.flightPrices.remote
 
+import com.google.gson.annotations.SerializedName
+
 data class FlightPricesResults(
-    val Agents: List<Agent>?,
-    val Carriers: List<Carrier>?,
-    val Currencies: List<Currency>?,
-    val Itineraries: List<Itinerary>?,
-    val Legs: List<Leg>?,
-    val Places: List<Place>?,
-    val Query: Query?,
-    val Segments: List<Segment>?,
-    val ServiceQuery: ServiceQuery?,
-    val SessionKey: String?,
-    val Status: String?
+    @SerializedName("Agents")
+    val agents: List<Agent>?,
+    @SerializedName("Carriers")
+    val carriers: List<Carrier>?,
+    @SerializedName("Currencies")
+    val currencies: List<Currency>?,
+    @SerializedName("Itineraries")
+    val itineraries: List<Itinerary>?,
+    @SerializedName("Legs")
+    val legs: List<Leg>?,
+    @SerializedName("Places")
+    val places: List<Place>?,
+    @SerializedName("Query")
+    val query: Query?,
+    @SerializedName("Segments")
+    val segments: List<Segment>?,
+    @SerializedName("ServiceQuery")
+    val serviceQuery: ServiceQuery?,
+    @SerializedName("SessionKey")
+    val sessionKey: String?,
+    @SerializedName("Status")
+    val status: String?
 )

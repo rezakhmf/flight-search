@@ -1,20 +1,26 @@
 package com.reza.skyscannertest.ui.flightPrices.view
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView.HORIZONTAL
+import android.support.v7.widget.RecyclerView.VERTICAL
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
 import com.reza.skyscannertest.ui.base.BaseFragment
 import com.reza.skyscannertest.ui.flightPrices.adapter.FlightPricesRVAdapter
+import com.reza.skyscannertest.ui.flightPrices.presenter.DividerItemDecoration
 import com.reza.skyscannertest.ui.flightPrices.presenter.FlightPricesPresenter
 import com.reza.skyscannertest.utils.extensions.invisible
 import com.reza.skyscannertest.utils.extensions.visible
 import kotlinx.android.synthetic.main.flight_prices_fragment.*
+import kotlinx.android.synthetic.main.flight_prices_fragment.view.*
 import javax.inject.Inject
 
 class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPricesView {
-
 
     @Inject
     lateinit var flightPricesPresenter: FlightPricesPresenter
@@ -29,57 +35,54 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
         flightPricesPresenter?.setView(this)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val view = inflater.inflate(layoutId(), container, false)
+
+        with(view.flightPricesRV) {
+            setHasFixedSize(true)
+            val manager = LinearLayoutManager(context)
+            layoutManager = manager
+//            val dividerItemDecoration = DividerItemDecoration(context, VERTICAL, true)
+//            dividerItemDecoration.setDrawable(context.getDrawable(R.drawable.border))
+//            dividerItemDecoration.setOrientation(VERTICAL)
+//            addItemDecoration(dividerItemDecoration)
+        }
+
+        return view
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showProgress()
         initializeView()
-        flightPricesPresenter.createFlightPricesSession()
-
-        //loadReposList()
+        showProgress()
     }
 
     private fun initializeView() {
         emptyView.visible()
-        with(flightPricesRV) {
-            setHasFixedSize(true)
-            adapter = flightPricesRVAdapter
-            layoutManager = LinearLayoutManager(activity)
 
-
-        }
-//
-//        flightPricesRVAdapter?.reloadFlightPrices()
-    }
-
-    private fun loadReposList() {
-        emptyView.invalidate()
+        flightPricesPresenter.createFlightPricesSession()
         flightPricesRV.visible()
-       // showProgress()
-        // should get price list from here from peresenter need to fix all injection
-        //flightPricesPresenter.createFlightPricesSession()
     }
 
 
     override fun showFlightPrices(flightPrices: MutableList<FlightInfo>) {
-        // connect to recycleview
         flightPricesRVAdapter?.reloadFlightPrices(flightPrices)
 
-        print(flightPrices)
-        with(flightPricesRV) {
-            setHasFixedSize(true)
-            adapter = flightPricesRVAdapter
-            layoutManager = LinearLayoutManager(activity)
-            emptyView.invisible()
-        }
-
+        sortFilter.text = "Sort & Filter"
+        pagingResult.text = flightPrices.size.toString()
+        flightPricesRV.recycledViewPool.setMaxRecycledViews(0,20)
+        flightPricesRV.adapter = flightPricesRVAdapter
+        flightPricesRVAdapter?.notifyDataSetChanged()
+        emptyView.invisible()
+        hideProgress()
     }
 
     override fun loadingStarted() {
-        print("loading Started")
+        notify("loading...")
     }
 
     override fun loadingFailed(errorMessage: String?) {
-
+        notify(errorMessage.toString())
     }
 
 }

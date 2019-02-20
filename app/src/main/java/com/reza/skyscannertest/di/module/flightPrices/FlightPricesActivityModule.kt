@@ -8,8 +8,6 @@ import dagger.Provides
 @Module
 class FlightPricesActivityModule {
 
-
-
     @Provides
     fun bindFlightPricesActivity(flightPricesActivity: FlightPricesActivity): FlightPricesActivity {
         return FlightPricesActivity()
