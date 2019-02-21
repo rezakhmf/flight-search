@@ -67,7 +67,7 @@ class FlightPricesRVAdapter @Inject constructor() : RecyclerView.Adapter<Recycle
             }
             ListItem.TYPE_FEEDBACK -> {
                 // TODO(replace with calculated)
-                holder.itemView.flightPoint.text = "10"
+                holder.itemView.flightPoint.text = "10.0"
                 holder.itemView.flightProvider.text = flightInfo.carrier
                 holder.itemView.flightPrice.text = "£35"
             }

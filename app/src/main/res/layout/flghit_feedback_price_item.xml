@@ -53,7 +53,7 @@
             tools:text="10.0"
 			android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="@id/flightPrice"
             android:layout_marginTop="4dp"
             app:layout_constraintLeft_toLeftOf="@id/flightFeedbackIcon"
@@ -66,7 +66,7 @@
             tools:text="£35"
             android:textSize="16sp"
 			android:textColor="@color/colorPrimary"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="@id/view_divider"
             app:layout_constraintRight_toRightOf="@id/view_divider"
             android:gravity="end"
@@ -79,7 +79,7 @@
             tools:text="via Wizzair.com"
             android:textSize="16sp"
             android:textColor="@color/flightBackground"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/flightPrice"
             app:layout_constraintRight_toRightOf="@id/flightPrice"/>
 
