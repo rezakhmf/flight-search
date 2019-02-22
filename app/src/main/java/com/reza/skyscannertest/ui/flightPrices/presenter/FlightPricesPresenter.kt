@@ -65,8 +65,6 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { flightPrices ->
-
-
                     doAsync {
                         val flightsInfo = flightPricesInOutBound.getFlightPrices(flightPrices)
                         uiThread {
@@ -80,7 +78,6 @@ class FlightPricesPresenter @Inject constructor(flightPricesApi: FlightPricesApi
                 onComplete = {
                     print("completed")
                 })
-
     }
 
     override fun setView(flightPricesView: IFlightPricesView) {

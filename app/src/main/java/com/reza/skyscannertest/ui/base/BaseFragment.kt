@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.toolbar.*
 abstract class BaseFragment: DaggerFragment() {
 
     private var mActivity: BaseActivity? = null
-    private var mRootView: View? = null
 
     abstract fun layoutId(): Int
 

@@ -1,5 +1,7 @@
 package com.reza.skyscannertest.data.flightPrices.local
 
+import android.arch.lifecycle.ViewModel
+
 data class FlightInfo(
     var carrier: String? = "",
     var directionality: String? = "",

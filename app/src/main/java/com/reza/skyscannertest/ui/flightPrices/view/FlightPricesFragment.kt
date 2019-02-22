@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.reza.skyscannertest.R
 import com.reza.skyscannertest.data.flightPrices.local.FlightInfo
 import com.reza.skyscannertest.ui.base.BaseFragment
 import com.reza.skyscannertest.ui.flightPrices.adapter.FlightPricesRVAdapter
@@ -14,13 +13,10 @@ import com.reza.skyscannertest.utils.extensions.invisible
 import com.reza.skyscannertest.utils.extensions.visible
 import kotlinx.android.synthetic.main.flight_prices_fragment.*
 import kotlinx.android.synthetic.main.flight_prices_fragment.view.*
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.toolbar.view.*
 import javax.inject.Inject
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+
+
+import android.arch.lifecycle.ViewModelProviders
 
 
 class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPricesView {
@@ -30,11 +26,14 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
     @Inject
     lateinit var flightPricesRVAdapter: FlightPricesRVAdapter
 
+    private var flightsInfoViewModel: FlightsInfoViewModel? = null
+
     override fun layoutId() = com.reza.skyscannertest.R.layout.flight_prices_fragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        flightsInfoViewModel = ViewModelProviders.of(this).get(FlightsInfoViewModel::class.java)
         flightPricesPresenter?.setView(this)
     }
 
@@ -58,25 +57,21 @@ class FlightPricesFragment @Inject constructor() : BaseFragment(), IFlightPrices
 
     private fun initializeView() {
         emptyView.visible()
+        if(flightsInfoViewModel?.flightInfo == null) {
+            flightPricesPresenter.createFlightPricesSession()
+        } else {
+            flightsInfoViewModel?.flightInfo?.let {
+                flightPricesRVAdapter?.reloadFlightPrices(it)
+            }
+        }
 
-        flightPricesPresenter.createFlightPricesSession()
         flightPricesRV.visible()
     }
 
 
     override fun showFlightPrices(flightPrices: MutableList<FlightInfo>) {
-        flightPricesRVAdapter?.reloadFlightPrices(flightPrices)
 
-//        val act = activity as AppCompatActivity?
-//        if (act!!.supportActionBar != null) {
-//           // val toolbar = act.supportActionBar!!.customView as Toolbar
-//            doAsync {
-//                uiThread {
-//                    toolbarFromTo.text = "BUD - London"
-//                }
-//            }
-//
-//        }
+        flightPricesRVAdapter?.reloadFlightPrices(flightPrices)
 
         sortFilter.text = "Sort & Filter"
         pagingResult.text = flightPrices.size.toString() + " resutls"

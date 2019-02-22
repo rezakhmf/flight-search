@@ -24,7 +24,7 @@
                                       android:layout_height="60dp"
                                       app:constraint_referenced_ids="airlineLogo"
                                       android:layout_marginTop="16dp"
-                                      android:background="@color/sectionBackground"/>
+                                      android:background="@color/colorTextPrimary"/>
 
     <View
             android:id="@+id/view_divider"
